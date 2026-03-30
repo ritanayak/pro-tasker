@@ -3,12 +3,15 @@ import { configDotenv } from 'dotenv';
 import mongoose from 'mongoose';
 import cors from cors;
 import authRoutes from './routes/authRoutes.js';
+import projectRoutes from './routes/projectRoutes.js';
+
 
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 app.use('/api/auth', authRoutes);
+app.use('/api/projects', projectRoutes);
 
 mongoose.connect(process.env.MONGO_URI)
 .then (()=> console.log ("DB connected"));
