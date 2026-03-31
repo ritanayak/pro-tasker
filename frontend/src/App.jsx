@@ -4,12 +4,14 @@ import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import Project from './pages/Project';
 import ProtectedRoute from './components/ProtectedRoute';
+import Navbar from './components/Navbar';
 import './App.css'
 
 function App() {
 
   return (
     <BrowserRouter>
+    <Navbar/>
     <Routes>
       
       {/* Public Routes */}
