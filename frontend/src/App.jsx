@@ -5,7 +5,7 @@ import Dashboard from './pages/Dashboard';
 import Project from './pages/Project';
 import ProtectedRoute from './components/ProtectedRoute';
 import Navbar from './components/Navbar';
-import './App.css'
+//import './App.css'
 
 function App() {
 

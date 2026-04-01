@@ -1,15 +1,26 @@
-import axios from 'axios';
+import axios from "axios";
 
+const BASE_URL = import.meta.env.VITE_BASE_URL;
+
+// helper
+const token = () => localStorage.getItem("token");
+
+//  SINGLE API CLIENT (recommended)
 const API = axios.create({
-    baseURL: "http://localhost:3000/api"
+  baseURL: `${BASE_URL}/api`,
 });
 
-//Attach tiken automatically
+//  ALWAYS attach latest token
 API.interceptors.request.use((req) => {
-    const token = localStorage.getItem("token");
-    if (token) req.headers.Authorization = `Bearer ${token}`;
-    return req;
-});
+  const t = token();
 
+  if (t) {
+    req.headers.Authorization = `Bearer ${t}`;
+  }
+
+  console.log("TOKEN SENT:", t); // 🔍 debug
+
+  return req;
+});
 
 export default API;

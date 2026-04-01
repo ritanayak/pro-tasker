@@ -1,31 +1,22 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState } from "react";
 
 export const AuthContext = createContext();
 
-export const AuthProvider = ({ Children}) => {
-    const [user, setUser] = useState(null);
+export function AuthProvider({ children }) {
+  const [user, setUser] = useState(null);
 
-    // Load user from localstorage on refresh
-    useEffect(() => {
-        const token = localStorage.getItem("token");
-        if (token) {
-            setUser ( { token});
-        }
-    }, []);
+  const login = (data) => {
+    setUser(data);
+  };
 
-    const login = (data) => {
-        localStorage.setItem("token", data.token);
-        setUser(data);
-    };
+  const logout = () => {
+    setUser(null);
+    localStorage.removeItem("token");
+  };
 
-    const logout = () => {
-        localStorage.removeItem("token");
-        setUser(null);
-    };
-
-    return (
-        <AuthContext.Provider value={{ user, login, logout}}>
-        {Children}
-        </AuthContext.Provider>
-    );
-};
+  return (
+    <AuthContext.Provider value={{ user, login, logout }}>
+      {children}
+    </AuthContext.Provider>
+  );
+}
