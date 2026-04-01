@@ -9,6 +9,6 @@ const router = express.Router();
 router.use(protect);
 router.post("/", createProject);
 router.get("/", getProjects);
-router.use('./:projectId/tasks', taskRoutes);
+router.use('/:projectId/tasks', taskRoutes);
 
 export default router;
