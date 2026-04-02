@@ -4,9 +4,16 @@ import Task from "../models/Task.js";
 //  CREATE TASK
 export const createTask = async (req, res) => {
   try {
+    console.log("PROJECT ID:", req.params.projectId);
+    console.log("BODY:", req.body);
+    
+    if (!req.params.projectId) {
+        return res.status(400).json ({ message:"Project ID missing"})
+    }
     const task = await Task.create({
       title: req.body.title,
-      status: req.body.status || "Pending",
+      description: req.body.description || "",
+      status: req.body.status || "To Do",
       priority: req.body.priority || "Low",
       dueDate: req.body.dueDate || null,
       project: req.params.projectId,
@@ -14,6 +21,7 @@ export const createTask = async (req, res) => {
 
     res.status(201).json(task);
   } catch (error) {
+    console.error("CREATE TASK ERROR:", error);
     res.status(500).json({ message: error.message });
   }
 };
@@ -24,19 +32,30 @@ export const getTasks = async (req, res) => {
   try {
     const { status, priority, search } = req.query;
 
-    let query = { project: req.params.projectId };
+    let query = { project: req.params.projectId, };
 
-    if (status) query.status = status;
-    if (priority) query.priority = priority;
+    // ✅ FILTERS
+    if (status && status !== "") {
+      query.status = status;
+    }
 
-    if (search) {
-      query.title = { $regex: search, $options: "i" };
+    if (priority && priority !== "") {
+      query.priority = priority;
+    }
+
+    // ✅ SEARCH (FIXED)
+    if (search && search.trim() !== "") {
+      query.title = {
+        $regex: search.trim(),
+        $options: "i",
+      };
     }
 
     const tasks = await Task.find(query).sort({ createdAt: -1 });
 
     res.json(tasks);
   } catch (error) {
+    console.error("SEARCH ERROR:", error);
     res.status(500).json({ message: error.message });
   }
 };
