@@ -18,7 +18,7 @@ API.interceptors.request.use((req) => {
     req.headers.Authorization = `Bearer ${t}`;
   }
 
-  console.log("TOKEN SENT:", t); // 🔍 debug
+  console.log("TOKEN SENT:", t); // debug
 
   return req;
 });

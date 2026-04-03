@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 import bcrypt from 'bcryptjs';
-import { type } from "os";
 
 const schema = new mongoose.Schema({
     name: String,

@@ -108,7 +108,7 @@ export default function Project() {
       {analytics && (
         <div style={{ display: "flex", gap: "10px", marginBottom: "15px" }}>
           <div>Total: {analytics.total}</div>
-          <div>Pending: {analytics.pending}</div>
+          <div>To Do: {analytics.todo}</div>
           <div>In Progress: {analytics.inProgress}</div>
           <div>Done: {analytics.done}</div>
           <div>High Priority: {analytics.highPriority}</div>

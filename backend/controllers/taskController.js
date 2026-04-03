@@ -34,7 +34,7 @@ export const getTasks = async (req, res) => {
 
     let query = { project: req.params.projectId, };
 
-    // ✅ FILTERS
+    // FILTERS
     if (status && status !== "") {
       query.status = status;
     }
@@ -43,7 +43,7 @@ export const getTasks = async (req, res) => {
       query.priority = priority;
     }
 
-    // ✅ SEARCH (FIXED)
+    // SEARCH (FIXED)
     if (search && search.trim() !== "") {
       query.title = {
         $regex: search.trim(),
@@ -115,7 +115,7 @@ export const getTaskAnalytics = async (req, res) => {
 
     const analytics = {
       total: tasks.length,
-      pending: tasks.filter((t) => t.status === "Pending").length,
+      todo: tasks.filter((t) => t.status === "To Do").length,
       inProgress: tasks.filter((t) => t.status === "In Progress").length,
       done: tasks.filter((t) => t.status === "Done").length,
       highPriority: tasks.filter((t) => t.priority === "High").length,
